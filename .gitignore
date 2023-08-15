@@ -1,0 +1,12 @@
+#node
+/node_modules/
+
+#build/testing
+/dist/
+/repo/
+
+#environmentals
+.env.local
+
+#todo
+todo.md

@@ -1,0 +1,35 @@
+{
+  "name": "next-authenticator",
+  "version": "1.0.0",
+  "description": "Authentication for your next.js app using mongodb and iron-webcrypto",
+  "main": "dist/src/index.js",
+  "scripts": {
+    "build": "prettier-check && lint && tsc && node scripts/build-script.js && cd dist && yarn install",
+    "lint": "eslint .",
+    "prettier-fix": "prettier --write .",
+    "prettier-check": "prettier --check .",
+    "test": "node dist/src/index.js"
+  },
+  "keywords": [
+    "mongodb",
+    "iron",
+    "auth",
+    "next.js",
+    "iron-webcrypto"
+  ],
+  "author": "Charley Wolf",
+  "license": "MIT",
+  "dependencies": {
+    "iron-webcrypto": "^0.8.0",
+    "next": "^13.4.13"
+  },
+  "devDependencies": {
+    "@types/node": "^20.5.0",
+    "@typescript-eslint/eslint-plugin": "^6.3.0",
+    "@typescript-eslint/parser": "^6.3.0",
+    "eslint": "^8.47.0",
+    "fs-extra": "^11.1.1",
+    "prettier": "^3.0.1",
+    "typescript": "^5.1.6"
+  }
+}
