@@ -1,0 +1,80 @@
+name: Build (ESLint, Prettier & Types) Check
+
+on:
+  pull_request:
+    types: [labeled]
+
+jobs:
+  build:
+    if: ${{ github.event.label.name == 'ci' }}
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "16"
+
+      - name: Install Dependencies
+        run: yarn
+
+      - name: Run ESLint Check
+        run: yarn build
+
+  final:
+    if: ${{ always() && contains(join(needs.*.result, ','), 'success') }}
+    needs: [build]
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add Comment to Pull Request
+        uses: peter-evans/create-or-update-comment@5f728c3dae25f329afbe34ee4d08eef25569d79f
+        with:
+          issue-number: ${{ github.event.pull_request.number }}
+          body: |
+            CI workflows completed successfully. Ready to merge!
+
+      - name: Add Label "ci approved" to Pull Request
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ["ci approved"]
+            })
+
+      - name: Remove Label "ci" from Pull Request
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: ci
+
+  failure:
+    if: failure()
+    needs: [build]
+    permissions:
+      pull-requests: write
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Add Label "ci rejected" to Pull Request
+        uses: actions/github-script@v6
+        with:
+          script: |
+            github.rest.issues.addLabels({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              labels: ["ci rejected"]
+            })
+
+      - name: Remove Label "ci" from Pull Request
+        uses: actions-ecosystem/action-remove-labels@v1
+        with:
+          labels: ci
