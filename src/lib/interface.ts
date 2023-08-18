@@ -3,16 +3,70 @@ export interface SessionSecret {
   expiration: number;
 }
 
+/**
+ * Configuration options for the authentication middleware.
+ */
 export interface AuthConfig {
-  protectedRoutes?: string[]; // Default: none - These are routes that only signed in users can access
-  callbackRoute?: string; // Default: "/login" - This is the route that you will be sent to when not logged in
-  callbackRedirect?: string | false; // Default: false - If a string is provided, that is where you will be sent to when trying to access the callback route while signed in
-  headerName?: string; // Default: next_authenticator - This is where the username will be provided as a header. This header can be used in your API routes. The value will either be the username or "false".
-  cookieName?: string; // Default: NEXT_AUTHENTICATOR_COOKIE - This is the name of the cookie where session data will be stored in on the client. It does not affect functionality, just make sure it doesn't conflict with another cookie.
+  /**
+   * An array of routes that only authenticated users can access.
+   * @default none
+   */
+  protectedRoutes?: string[];
+
+  /**
+   * The route to which users will be redirected when not logged in.
+   * @default "/login"
+   */
+  callbackRoute?: string;
+
+  /**
+   * If a string is provided, it specifies where users will be redirected when attempting to access the callback route while already signed in. Set to `false` to disable redirection.
+   * @default false
+   */
+  callbackRedirect?: string | false;
+
+  /**
+   * The name of the header where the username will be provided. This header can be used in your API routes.
+   * @remarks For reference in your api routes, the value of this header will either be the username of the authenticated user or `false`.
+   * @default "next_authenticator"
+   */
+  headerName?: string;
+
+  /**
+   * The name of the cookie where session data will be stored on the client.
+   * @default "NEXT_AUTHENTICATOR_COOKIE"
+   * @remarks It does not affect functionality, but ensure it doesn't conflict with other cookies.
+   */
+  cookieName?: string;
+
+  /**
+   * The duration (in seconds) for which authentication cookies will last. It is advised to use a lesser amount of time than usual due to the inability to invalidate cookies.
+   * @default 7 days
+   */
   cookieExpiration?: number;
+
+  /**
+   * Determines whether the authentication cookies should be secure (HTTPS only).
+   * @default true
+   */
   secure?: boolean;
-  mongo_uri: string; // This is your MongoDB uri. It is recommended that you store it as an environmental variable for maximum security.
-  session_private_key: string; // You must generate a 32 character password (minimum) for use in the session sealing/unsealing. Do not share the session key with anyone else, or else they will be able to access any account. Additionally, it is recommended that this is stored as an environmental variable.
+
+  /**
+   * The MongoDB URI used for authentication data storage.
+   * @remarks SECURITY RECOMMENDATION: Store this as an environmental variable.
+   */
+  mongo_uri: string;
+
+  /**
+   * A 32-character password (minimum) used for session sealing/unsealing. It must not be shared with anyone else to maintain account security. Recommended to be stored as an environmental variable.
+   * @remarks SECURITY RECOMMENDATION: Store this as an environmental variable.
+   */
+  session_private_key: string;
+  /**
+   * These are routes that will be completely ignored by the authentication system, written in regex. By default, this will include `_next/static`, `_next/image`, and `favicon.ico`.
+   * @remarks In the regex, routes that DO NOT match must be the ones that are ignored. Regular routes will match.
+   */
+  ignoredRoutes?: RegExp;
 }
 
 export interface ParsedConfig {
@@ -25,4 +79,5 @@ export interface ParsedConfig {
   cookieName: string;
   mongo_uri: string;
   session_private_key: string;
+  ignoredRoutes: RegExp;
 }

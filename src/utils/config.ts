@@ -12,6 +12,8 @@ export function parseConfig(config: AuthConfig): ParsedConfig {
     cookieExpiration: config.cookieExpiration || defaultExpiration,
     mongo_uri: config.mongo_uri,
     session_private_key: config.session_private_key,
+    ignoredRoutes:
+      config.ignoredRoutes || /((?!_next\/static|_next\/image|favicon\.ico).*)/,
   };
 
   return parsed;

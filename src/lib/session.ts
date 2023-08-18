@@ -13,7 +13,7 @@ const _crypto: Crypto = getCrypto();
 export async function getSession(
   config: ParsedConfig,
   request: NextRequest,
-): Promise<boolean | string> {
+): Promise<false | string> {
   const cookie = request.cookies.get(config.cookieName);
   if (!cookie || !cookie.value) return false;
   try {
@@ -38,7 +38,7 @@ export async function getSession(
 export async function createSession(
   config: ParsedConfig,
   username: string,
-): Promise<boolean | ResponseCookies> {
+): Promise<false | ResponseCookies> {
   try {
     const secret: SessionSecret = {
       expiration: config.cookieExpiration,
