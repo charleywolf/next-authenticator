@@ -4,7 +4,7 @@
   "description": "Authentication for your next.js app using mongodb and iron-webcrypto",
   "main": "dist/src/index.js",
   "scripts": {
-    "build": "yarn prettier-check && yarn lint && yarn tsc && node scripts/build-script.js && cd dist && yarn install",
+    "build": "npm run prettier-check && npm run lint && npx tsc && node scripts/build-script.js && cd dist && npm ci",
     "lint": "eslint .",
     "prettier-fix": "prettier --write .",
     "prettier-check": "prettier --check .",

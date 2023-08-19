@@ -1,6 +1,6 @@
 const fs = require("fs-extra");
 // Define the source and destination paths for the files you want to copy
-const filesToCopy = ["package.json"];
+const filesToCopy = ["package.json", "package-lock.json"];
 
 const destinationDir = "dist";
 
