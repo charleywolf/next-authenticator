@@ -26,10 +26,8 @@ jobs:
     steps:
       - name: Build Package
         run: npm run build
-        working-directory: ./dist
 
       - name: Publish to npm
         run: npm publish
-        working-directory: ./dist
         env:
           NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}

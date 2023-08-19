@@ -2,9 +2,11 @@
   "name": "next-authenticator",
   "version": "1.0.0",
   "description": "Authentication for your next.js app using mongodb and iron-webcrypto",
-  "main": "dist/src/index.js",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "type": "module",
   "scripts": {
-    "build": "npm run prettier-check && npm run lint && npx tsc && node scripts/build-script.js && cd dist && npm ci",
+    "build": "npm run prettier-check && npm run lint && npx tsc",
     "lint": "eslint .",
     "prettier-fix": "prettier --write .",
     "prettier-check": "prettier --check .",
@@ -16,6 +18,12 @@
     "auth",
     "next.js",
     "iron-webcrypto"
+  ],
+  "files": [
+    "dist",
+    "LICENSE",
+    "README.md",
+    "package.json"
   ],
   "author": "Charley Wolf",
   "license": "MIT",
