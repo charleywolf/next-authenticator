@@ -44,7 +44,7 @@ if (!process.env.MONGO_URI || !process.env.SESSION_PRIVATE_KEY) {
     For more information on any of these configuration options, view the configuration sections of the docs.
 */
 export const AuthenticatorConfig: AuthConfig = {
-  mongo_uri: process.env.MONGO_URI, // Required - Mongo URI for your database (view prerequisites on github readme for more)
+  mongoUri: process.env.MONGO_URI, // Required - Mongo URI for your database (view prerequisites on github readme for more)
   session_private_key: process.env.SESSION_PRIVATE_KEY, // Required - Private key for encrypting session (view prerequisites on github readme for more)
   // protectedRoutes: [], // An array of routes that only authenticated users can access.
   // callbackRoute: "/login", // The route to which users will be redirected when not logged in.
@@ -65,7 +65,7 @@ Next-Authenticator provides numerous options for configurations to tailor the pa
 
 | Parameter               | Type               | Default                                               | Description                                                                                                                                                          |
 | ----------------------- | ------------------ | ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `mongo_uri`           | `string`         |                                                       | **Required.** The MongoDB URI used for authentication data storage.                                                                                            |
+| `mongoUri`            | `string`         |                                                       | **Required.** The MongoDB URI used for authentication data storage.                                                                                            |
 | `session_private_key` | `string`         |                                                       | **Required.** A 32-character password (minimum) used for session sealing/unsealing.                                                                            |
 | `protectedRoutes`     | `string[]`       | `[]`                                                | An array of routes that only authenticated users can access.                                                                                                         |
 | `callbackRoute`       | `string`         | `/login`                                            | The route to which users will be redirected when not logged in.                                                                                                      |

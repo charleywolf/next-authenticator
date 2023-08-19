@@ -62,13 +62,13 @@ export interface AuthConfig {
    * The MongoDB database used for authentication data storage.
    * @default main
    */
-  mongoDatabase: string;
+  mongoDatabase?: string;
 
   /**
    * The MongoDB collection used for authentication data storage.
    * @default accounts
    */
-  mongoCollection: string;
+  mongoCollection?: string;
 
   /**
    * A 32-character password (minimum) used for session sealing/unsealing. It must not be shared with anyone else to maintain account security.
