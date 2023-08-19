@@ -1,4 +1,4 @@
-## Package Configuration
+## Configuration Options
 
 Next-Authenticator provides numerous options for configurations to tailor the package to your specific project's needs. If you would like another configuration option to be added, feel free to open up an issue on our GitHub.
 
