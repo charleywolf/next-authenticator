@@ -3,7 +3,7 @@
 Next-Authenticator provides numerous options for configurations to tailor the package to your specific project's needs. If you would like another configuration option to be added, feel free to open up an issue on our GitHub.
 
 | Parameter             | Type              | Default                     | Description                                                                                                                                                        |
-| :-------------------- | :---------------- | :-------------------------- | :----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------ | ------------------------------------------------------------------------------------------------ |
+| --------------------- | ----------------- | --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
 | `protectedRoutes`     | `string[]`        | none                        | An array of routes that only authenticated users can access.                                                                                                       |
 | `callbackRoute`       | `string`          | `/login`                    | The route to which users will be redirected when not logged in.                                                                                                    |
 | `callbackRedirect`    | `string \| false` | false                       | If provided, specifies where users will be redirected when attempting to access the callback route while already signed in. Set to `false` to disable redirection. |
@@ -15,7 +15,7 @@ Next-Authenticator provides numerous options for configurations to tailor the pa
 | `mongoDatabase`       | `string`          | `main`                      | The MongoDB database used for authentication data storage.                                                                                                         |
 | `mongoCollection`     | `string`          | `accounts`                  | The MongoDB collection used for authentication data storage.                                                                                                       |
 | `session_private_key` | `string`          |                             | A 32-character password (minimum) used for session sealing/unsealing.                                                                                              |
-| `ignoredRoutes`       | `RegExp`          | `((?!\_next\/static         | \_next\/image                                                                                                                                                      | favicon\.ico).\*)` | These are routes that will be completely ignored by the authentication system, written in regex. |
+| `ignoredRoutes`       | `RegExp`          | ...                         | These are routes that will be completely ignored by the authentication system, written in regex.                                                                   |
 
 ### Additional Remarks
 
