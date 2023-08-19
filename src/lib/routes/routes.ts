@@ -45,8 +45,17 @@ export async function loginHandler(
       return BadRequest();
     }
   } catch (error: unknown) {
-    throwError("loginHandler", error);
-    return InternalServerError();
+    if (
+      error &&
+      typeof error === "object" &&
+      "message" in error &&
+      error.message == "Unexpected end of JSON input"
+    ) {
+      return BadRequest();
+    } else {
+      throwError("signupHandler", error);
+      return InternalServerError();
+    }
   }
 }
 
@@ -93,7 +102,16 @@ export async function signupHandler(
 
     return Success();
   } catch (error: unknown) {
-    throwError("signupHandler", error);
-    return InternalServerError();
+    if (
+      error &&
+      typeof error === "object" &&
+      "message" in error &&
+      error.message == "Unexpected end of JSON input"
+    ) {
+      return BadRequest();
+    } else {
+      throwError("signupHandler", error);
+      return InternalServerError();
+    }
   }
 }

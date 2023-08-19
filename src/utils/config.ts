@@ -2,6 +2,10 @@ import { AuthConfig, ParsedConfig } from "../lib/interface";
 
 export function parseConfig(config: AuthConfig): ParsedConfig {
   const defaultExpiration = 7 * 24 * 60 * 60 * 1000;
+  if (config.session_private_key.length < 32) {
+    throw Error("Your session_private_key must be at least 32 characters!");
+  }
+
   const parsed: ParsedConfig = {
     protectedRoutes: config.protectedRoutes || [],
     callbackRoute: config.callbackRoute || "/login",

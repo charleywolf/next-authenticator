@@ -12,6 +12,20 @@
     "prettier-check": "prettier --check .",
     "test": "node dist/src/index.js"
   },
+  "exports": {
+    ".": {
+      "import": "./dist/index.js",
+      "types": "./dist/index.d.ts"
+    },
+    "./middleware": {
+      "import": "./dist/middleware.js",
+      "types": "./dist/middleware.d.ts"
+    },
+    "./types": {
+      "import": "./dist/lib/interface.js",
+      "types": "./dist/lib/interface.d.ts"
+    }
+  },
   "keywords": [
     "mongodb",
     "iron",
