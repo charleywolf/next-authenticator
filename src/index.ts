@@ -14,10 +14,12 @@ export async function authenticatorMiddleware(
   request: NextRequest,
 ) {
   const parsedConfig: ParsedConfig = parseConfig(config);
-  const session: string | false = await getSession(parsedConfig, request);
 
   if (parsedConfig.ignoredRoutes.test(request.nextUrl.pathname)) {
+    const session: string | false = await getSession(parsedConfig, request);
+
     if (
+      !session &&
       parsedConfig.protectedRoutes.some((route) =>
         request.nextUrl.pathname.startsWith(route),
       )
@@ -26,13 +28,23 @@ export async function authenticatorMiddleware(
         new URL(parsedConfig.callbackRoute, request.url),
       );
     } else if (
+      session &&
       request.nextUrl.pathname.startsWith(parsedConfig.callbackRoute) &&
-      parsedConfig.callbackRedirect !== false &&
-      session
+      parsedConfig.callbackRedirect !== false
     ) {
       return NextResponse.rewrite(
         new URL(parsedConfig.callbackRedirect, request.url),
       );
+    } else {
+      const requestHeaders = new Headers(request.headers);
+      requestHeaders.set(parsedConfig.headerName, session || "false");
+
+      return NextResponse.next({
+        request: {
+          // New request headers
+          headers: requestHeaders,
+        },
+      });
     }
   }
 }
