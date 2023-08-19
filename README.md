@@ -2,6 +2,8 @@
 
 This package can be used along with a [MongoDB database](https://www.mongodb.com/atlas/database) to provide an easy-to-use authentication system for your Next.js app. Please refer to the usage guide for implementation. _Only compatible with app dir projects._
 
+### This package is in beta, do not use it for important projects!
+
 ## Prerequisites
 
 You need to generate/obtain the following before using this package:
