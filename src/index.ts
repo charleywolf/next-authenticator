@@ -1,13 +1,21 @@
 import { NextRequest, NextResponse } from "next/server";
 import { AuthConfig, ParsedConfig } from "./lib/interface";
 import { parseConfig } from "./utils/config";
-import { getSession } from "./lib/session";
+import { getSession } from "./lib/routes/session";
+import {
+  loginHandler,
+  logoutHandler,
+  signupHandler,
+} from "./lib/routes/routes";
 
 /**
- * Next.js app router middleware function to check if you are attempting to access a protected route or attempting to access the callback route while logged in with callbackRedirect enabled
- * @param {AuthConfig} config - The configuration of the authenticator.
- * @param {NextRequest} request - The request to be checked.
- * @returns {NextResponse|void} - The NextResponse to be returned.
+ * Next.js app router middleware function
+ * Checks if you are attempting to access a protected route or attempting to access the callback route while logged in with callbackRedirect enabled
+ * Provides the authorization header for your API routes
+ * For implementation, view the GitHub documentation
+ * @param {AuthConfig} config - The configuration of the authenticator
+ * @param {NextRequest} request - The request to be checked
+ * @returns {NextResponse|void} - The NextResponse to be returned
  */
 export async function authenticatorMiddleware(
   config: AuthConfig,
@@ -47,4 +55,30 @@ export async function authenticatorMiddleware(
       });
     }
   }
+}
+
+/**
+ * Next.js app router route handlers for login, signup, and logout
+ * All of the params, excluding the config, are given to you by Next.js
+ * For implementation, view the GitHub documentation
+ * @param {AuthConfig} config - The configuration of the authenticator
+ * @param {NextRequest} request - The request to be checked
+ * @returns {NextResponse|void} - The NextResponse to be returned
+ * @param {Object} params - The parameters object
+ * @param {"login" | "logout" | "signup"} params.method - The nested value of the method
+ */
+export async function authenticatorRoutes(
+  config: AuthConfig,
+  request: NextRequest,
+  { params }: { params: { method: "login" | "logout" | "signup" } },
+): Promise<NextResponse> {
+  const parsedConfig: ParsedConfig = parseConfig(config);
+
+  const methods = {
+    login: loginHandler,
+    logout: logoutHandler,
+    signup: signupHandler,
+  };
+
+  return await methods[params.method](parsedConfig, request);
 }

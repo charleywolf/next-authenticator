@@ -1,19 +1,45 @@
 import { NextResponse } from "next/server";
 
-const Success = (): NextResponse => {
-  return NextResponse.json({ status: 200 });
+const Success = (message?: string): NextResponse => {
+  if (message) {
+    return NextResponse.json({ message: message }, { status: 200 });
+  } else {
+    return NextResponse.json({ status: 200 });
+  }
 };
 
-const InternalServerError = (): NextResponse => {
-  return NextResponse.json({ status: 500 });
+const InternalServerError = (error?: string): NextResponse => {
+  if (error) {
+    return NextResponse.json({ error: error }, { status: 500 });
+  } else {
+    return NextResponse.json({ status: 500 });
+  }
 };
 
-const Unauthorized = (): NextResponse => {
-  return NextResponse.json({ status: 401 }); // client provides no credentials or invalid credentials
+const Unauthorized = (error?: string): NextResponse => {
+  // client provides no credentials or invalid credentials
+  if (error) {
+    return NextResponse.json({ error: error }, { status: 401 });
+  } else {
+    return NextResponse.json({ status: 401 });
+  }
 };
 
-const Forbidden = (): NextResponse => {
-  return NextResponse.json({ status: 403 }); // client has valid credentials but not enough privileges to perform an action on a resource
+const Forbidden = (error?: string): NextResponse => {
+  // client has valid credentials but not enough privileges to perform an action on a resource
+  if (error) {
+    return NextResponse.json({ error: error }, { status: 403 });
+  } else {
+    return NextResponse.json({ status: 403 });
+  }
 };
 
-export { Forbidden, Unauthorized, InternalServerError, Success };
+const BadRequest = (error?: string): NextResponse => {
+  if (error) {
+    return NextResponse.json({ error: error }, { status: 400 });
+  } else {
+    return NextResponse.json({ status: 400 });
+  }
+};
+
+export { Forbidden, Unauthorized, InternalServerError, Success, BadRequest };

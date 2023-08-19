@@ -10,7 +10,9 @@ export function parseConfig(config: AuthConfig): ParsedConfig {
     cookieName: config.cookieName || "NEXT_AUTHENTICATOR_COOKIE",
     secure: config.secure || true,
     cookieExpiration: config.cookieExpiration || defaultExpiration,
-    mongo_uri: config.mongo_uri,
+    mongoUri: config.mongoUri,
+    mongoDatabase: config.mongoDatabase || "main",
+    mongoCollection: config.mongoCollection || "accounts",
     session_private_key: config.session_private_key,
     ignoredRoutes:
       config.ignoredRoutes || /((?!_next\/static|_next\/image|favicon\.ico).*)/,

@@ -1,12 +1,12 @@
 import * as Iron from "iron-webcrypto";
-import getCrypto from "../utils/crypto";
+import getCrypto from "../../utils/crypto";
 import { cookies } from "next/headers";
 
-import { ParsedConfig, SessionSecret } from "./interface";
-import { throwError } from "../utils/misc";
+import { ParsedConfig, SessionSecret } from "../interface";
+import { throwError } from "../../utils/misc";
 import { ResponseCookies } from "next/dist/compiled/@edge-runtime/cookies";
 import { NextRequest } from "next/server";
-import { isSessionSecret } from "../utils/typeof";
+import { isSessionSecret } from "../../utils/typeof";
 
 const _crypto: Crypto = getCrypto();
 
@@ -30,7 +30,7 @@ export async function getSession(
       return false;
     }
   } catch (error) {
-    throwError("getSession", error as string);
+    throwError("getSession", error);
     return false;
   }
 }
@@ -60,7 +60,7 @@ export async function createSession(
       path: "/",
     });
   } catch (error) {
-    throwError("createSession", error as string);
+    throwError("createSession", error);
     return false;
   }
 }
