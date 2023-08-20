@@ -21,7 +21,7 @@ jobs:
         run: npm ci
 
       - name: Build
-        run: npm build
+        run: npm run build
 
   final:
     if: ${{ always() && contains(join(needs.*.result, ','), 'success') }}
