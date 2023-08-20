@@ -2,6 +2,16 @@
 
 This package can be used along with a [MongoDB database](https://www.mongodb.com/atlas/database) to provide an easy-to-use authentication system for your Next.js app. Please refer to the usage guide for implementation. _Only compatible with app dir projects._
 
+## Installation
+
+Install next-authenticator with npm or yarn:
+
+```bash
+  npm install next-authenticator --save
+  yarn add next-authenticator
+```
+
+
 ## Prerequisites
 
 You need to generate/obtain the following before using this package:
@@ -102,3 +112,5 @@ Next-Authenticator provides numerous options for configurations to tailor the pa
 - In the `cookieExpiration` parameter, it is advised to use a lesser amount of time than usual because you cannot invalidate cookies.
 - **Security Note:** Store `mongo_uri` and `session_private_key` as environmental variables for security.
 - In the `ignoredRoutes` parameter, the regex defines routes that will be ignored by the authentication system.
+
+[MIT](https://choosealicense.com/licenses/mit/)
