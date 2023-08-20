@@ -52,15 +52,14 @@ async function existingAccountCheck(
 }
 
 function usernameCheck(config: ParsedConfig, username: string): string | true {
-  const onlyNumbersLettersOneUnderscore = /^[a-zA-Z0-9]*_[a-zA-Z0-9]*$/; // only allows 1 underscore and alphanumeric
-  const hasMoreThanOneUnderscore = /.*_.*_/; // allow one underscore max
+  const onlyNumbersLettersOneUnderscore = /^[a-zA-Z0-9]+(_[a-zA-Z0-9]+)?$/;
 
   if (username === "false") {
     return "Your username is a restricted keyword!";
-  } else if (hasMoreThanOneUnderscore.test(username)) {
+  } else if (username.split("_").length > 2) {
     return "Your username may only contain one underscore!";
   } else if (!onlyNumbersLettersOneUnderscore.test(username)) {
-    return "Your username may only contain alphanumeric characters!";
+    return "Your username may only contain letters, numbers, and one underscore.";
   } else if (username.length < 4) {
     return "Your username must be at least 4 characters";
   } else if (username.length > 24) {
@@ -75,7 +74,7 @@ function passwordCheck(config: ParsedConfig, password: string): string | true {
 
   if (!noSpaces.test(password)) {
     return "Your password may not contain spaces!";
-  } else if (!isStrongPassword) {
+  } else if (!isStrongPassword(password)) {
     return "Your password must contain at least one uppercase letter, one lowercase letter, one number and one special character.";
   } else if (password.length < 8) {
     return "Your password must be at least 8 characters!";

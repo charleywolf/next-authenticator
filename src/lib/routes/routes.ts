@@ -85,7 +85,6 @@ export async function signupHandler(
       typeof password === "string"
     ) {
       const validation = await validate(config, username, password);
-
       if (typeof validation === "string") {
         return BadRequest(validation);
       } else {
@@ -98,9 +97,9 @@ export async function signupHandler(
           return InternalServerError();
         }
       }
+    } else {
+      return BadRequest();
     }
-
-    return Success();
   } catch (error: unknown) {
     if (
       error &&
