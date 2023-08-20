@@ -1,8 +1,6 @@
-# Next-Authenticator
+# Next-Authenticator (BETA)
 
 This package can be used along with a [MongoDB database](https://www.mongodb.com/atlas/database) to provide an easy-to-use authentication system for your Next.js app. Please refer to the usage guide for implementation. _Only compatible with app dir projects._
-
-### This package is in beta, do not use it for important projects!
 
 ## Prerequisites
 
@@ -49,7 +47,7 @@ export default function middleware(request: NextRequest) {
 }
 ```
 
-### Configuration (config.ts/config.js)
+### Configuration (config.ts)
 
 This file can be located anywhere in your project, as long as all your files using the package can access it.
 
