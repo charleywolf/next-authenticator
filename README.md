@@ -11,7 +11,6 @@ Install next-authenticator with npm or yarn:
   yarn add next-authenticator
 ```
 
-
 ## Prerequisites
 
 You need to generate/obtain the following before using this package:
@@ -113,4 +112,4 @@ Next-Authenticator provides numerous options for configurations to tailor the pa
 - **Security Note:** Store `mongo_uri` and `session_private_key` as environmental variables for security.
 - In the `ignoredRoutes` parameter, the regex defines routes that will be ignored by the authentication system.
 
-[MIT](https://choosealicense.com/licenses/mit/)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
