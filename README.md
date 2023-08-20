@@ -15,9 +15,27 @@ You need to generate/obtain the following before using this package:
 
 ## Usage/Examples
 
-### Middleware Implementation (middleware.ts/middleware.js)
+### API Route Implementation (route.ts)
 
-This file is either in the root directory, or the src directory if applicable.
+**Location:** `app/auth/[method]/route.ts` or `src/app/auth/[method]/route.ts`
+
+```typescript
+// This handles the login, logout, and signup API routes
+import { AuthenticatorConfig } from "@/config";
+import { authenticatorRoutes } from "next-authenticator";
+import { NextRequest, NextResponse } from "next/server";
+
+export async function POST(
+  request: NextRequest,
+  params: { params: { method: "login" | "logout" | "signup" } },
+): Promise<NextResponse> {
+  return await authenticatorRoutes(AuthenticatorConfig, request, params);
+}
+```
+
+### Middleware Implementation (middleware.ts)
+
+**Location:** `middleware.ts` or `src/middleware.ts`
 
 ```typescript
 // This middleware will protect your routes and handle callbackRedirect if enabled
