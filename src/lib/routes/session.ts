@@ -43,7 +43,7 @@ export async function createSession(
   try {
     const secret: SessionSecret = {
       expiration: config.cookieExpiration,
-      username: username,
+      username,
     };
 
     const sealedSecret = await Iron.seal(

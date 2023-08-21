@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 
 const Success = (message?: string): NextResponse => {
   if (message) {
-    return NextResponse.json({ message: message }, { status: 200 });
+    return NextResponse.json({ message }, { status: 200 });
   } else {
     return NextResponse.json({ status: 200 });
   }
@@ -10,7 +10,7 @@ const Success = (message?: string): NextResponse => {
 
 const InternalServerError = (error?: string): NextResponse => {
   if (error) {
-    return NextResponse.json({ error: error }, { status: 500 });
+    return NextResponse.json({ error }, { status: 500 });
   } else {
     return NextResponse.json({ status: 500 });
   }
@@ -19,7 +19,7 @@ const InternalServerError = (error?: string): NextResponse => {
 const Unauthorized = (error?: string): NextResponse => {
   // client provides no credentials or invalid credentials
   if (error) {
-    return NextResponse.json({ error: error }, { status: 401 });
+    return NextResponse.json({ error }, { status: 401 });
   } else {
     return NextResponse.json({ status: 401 });
   }
@@ -28,7 +28,7 @@ const Unauthorized = (error?: string): NextResponse => {
 const Forbidden = (error?: string): NextResponse => {
   // client has valid credentials but not enough privileges to perform an action on a resource
   if (error) {
-    return NextResponse.json({ error: error }, { status: 403 });
+    return NextResponse.json({ error }, { status: 403 });
   } else {
     return NextResponse.json({ status: 403 });
   }
@@ -36,7 +36,7 @@ const Forbidden = (error?: string): NextResponse => {
 
 const BadRequest = (error?: string): NextResponse => {
   if (error) {
-    return NextResponse.json({ error: error }, { status: 400 });
+    return NextResponse.json({ error }, { status: 400 });
   } else {
     return NextResponse.json({ status: 400 });
   }
