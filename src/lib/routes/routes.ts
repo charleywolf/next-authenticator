@@ -49,7 +49,7 @@ export async function loginHandler(
       error &&
       typeof error === "object" &&
       "message" in error &&
-      error.message == "Unexpected end of JSON input"
+      error.message === "Unexpected end of JSON input"
     ) {
       return BadRequest();
     } else {
@@ -105,7 +105,7 @@ export async function signupHandler(
       error &&
       typeof error === "object" &&
       "message" in error &&
-      error.message == "Unexpected end of JSON input"
+      error.message === "Unexpected end of JSON input"
     ) {
       return BadRequest();
     } else {
