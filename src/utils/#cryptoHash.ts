@@ -1,7 +1,7 @@
 import { getError, throwError } from "./misc";
 import crypto from "crypto";
 
-const saltLength: number = 16; // Bytes
+const saltLength = 16; // Bytes
 
 /**
  * Hashes passwords using the in-built `crypto` module

@@ -1,7 +1,7 @@
 import { getError, throwError } from "./misc";
 import bcrypt from "bcrypt";
 
-const saltLength: number = 16; // Bytes
+const saltLength = 16; // Bytes
 
 /**
  * Hashes passwords using the `bcrypt` module
