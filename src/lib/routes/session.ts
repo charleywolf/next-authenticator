@@ -13,9 +13,9 @@ const _crypto: Crypto = getCrypto();
 export async function getSession(
   config: ParsedConfig,
   request: NextRequest,
-): Promise<false | string> {
+): Promise<undefined | string> {
   const cookie = request.cookies.get(config.cookieName);
-  if (!cookie || !cookie.value) return false;
+  if (!cookie || !cookie.value) return undefined;
   try {
     const secret = await Iron.unseal(
       _crypto,
@@ -27,11 +27,11 @@ export async function getSession(
     if (isSessionSecret(secret) && secret.expiration > Date.now()) {
       return secret.username;
     } else {
-      return false;
+      return undefined;
     }
   } catch (error) {
     throwError("getSession", error);
-    return false;
+    return undefined;
   }
 }
 
