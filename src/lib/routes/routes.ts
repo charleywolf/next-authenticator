@@ -59,6 +59,12 @@ export async function loginHandler(
   }
 }
 
+/**
+ * This functions handles the logout of a user by removing the session cookie from their end.
+ * Note that this DOES NOT invalidate the cookie, as such is impossible while using encryption-based session storage rather than database-based.
+ * @param {ParsedConfig} config
+ * @returns {Promise<NextResponse>}
+ */
 export function logoutHandler(config: ParsedConfig): Promise<NextResponse> {
   try {
     cookies().delete(config.cookieName);
