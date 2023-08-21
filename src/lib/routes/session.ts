@@ -1,3 +1,4 @@
+// skipcq: JS-C1003
 import * as Iron from "iron-webcrypto";
 import getCrypto from "../../utils/crypto";
 import { cookies } from "next/headers";
