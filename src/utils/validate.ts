@@ -6,6 +6,14 @@ import {
 } from "../lib/interface";
 import { throwError } from "./misc";
 
+/**
+ * Checks for validation issues by running an array of provided validation checks for the username & password
+ * Used in the account creation/signup process to ensure there are no issues
+ * @param config
+ * @param username
+ * @param password
+ * @returns {Promise<string | true>} Returns an error message for the bad request response, or true if no validation errors were found.
+ */
 export default async function validate(
   config: ParsedConfig,
   username: string,
@@ -39,6 +47,12 @@ export default async function validate(
   }
 }
 
+/**
+ * Checks if there is an existing account with the same username provided.
+ * @param {ParsedConfig} config
+ * @param {string} username
+ * @returns {Promise<string | true>} Returns an error message or true if no error was found.
+ */
 async function existingAccountCheck(
   config: ParsedConfig,
   username: string,
@@ -51,7 +65,18 @@ async function existingAccountCheck(
   }
 }
 
-function usernameCheck(config: ParsedConfig, username: string): string | true {
+/**
+ * Checks through the username for a few issues:
+ * - Username is a restricted keyword
+ * - Username contains >1 underscore
+ * - Username contains non-letters, non-numbers, and non-underscores
+ * - Username is <4 characters
+ * - Username is >24 characters
+ * @param {ParsedConfig} _
+ * @param {string} username
+ * @returns {string | true} Returns an error message or true if no error was found.
+ */
+function usernameCheck(_: ParsedConfig, username: string): string | true {
   const onlyNumbersLettersOneUnderscore = /^[a-zA-Z0-9]+(_[a-zA-Z0-9]+)?$/;
 
   if (username === "false") {
@@ -69,7 +94,17 @@ function usernameCheck(config: ParsedConfig, username: string): string | true {
   }
 }
 
-function passwordCheck(config: ParsedConfig, password: string): string | true {
+/**
+ * Checks the password for a few issues:
+ * - Password contains spaces
+ * - Password is not strong (one uppercase letter, one lowercase letter, one number, and one special character is required)
+ * - Password is <8 characters
+ * - Username is >32 characters
+ * @param {ParsedConfig} _
+ * @param {string} username
+ * @returns {string | true} Returns an error message or true if no error was found.
+ */
+function passwordCheck(_: ParsedConfig, password: string): string | true {
   const noSpaces = /^[^\s]+$/; // does not allow spaces
 
   if (!noSpaces.test(password)) {
@@ -85,6 +120,14 @@ function passwordCheck(config: ParsedConfig, password: string): string | true {
   }
 }
 
+/**
+ * Checks if the password is strong based on the following validation queries:
+ * - At least 1 special character
+ * - At least one uppercase character
+ * - At least one number
+ * @param {string} password
+ * @returns {boolean}
+ */
 function isStrongPassword(password: string): boolean {
   const hasSpecialCharacter = /[!@#$%^&*()]/.test(password);
   const hasUppercase = /[A-Z]/.test(password);
