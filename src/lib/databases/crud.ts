@@ -24,7 +24,7 @@ export async function getAccountFromUsername(
 ): Promise<AccountData[]> {
   try {
     const collection: Collection<AccountData> = await getCollection(config);
-    return await collection.find({ username: username }).toArray();
+    return await collection.find({ username }).toArray();
   } catch (error: unknown) {
     throwError("getAccount", error);
     return [];
@@ -40,8 +40,8 @@ export async function createAccount(
     const collection: Collection<AccountData> = await getCollection(config);
 
     const doc: AccountData = {
-      username: username,
-      password: password,
+      username,
+      password,
       _id: new ObjectId(),
     };
     return await collection.insertOne(doc);

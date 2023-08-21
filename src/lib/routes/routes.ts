@@ -49,7 +49,7 @@ export async function loginHandler(
       error &&
       typeof error === "object" &&
       "message" in error &&
-      error.message == "Unexpected end of JSON input"
+      error.message === "Unexpected end of JSON input"
     ) {
       return BadRequest();
     } else {
@@ -59,15 +59,19 @@ export async function loginHandler(
   }
 }
 
-export async function logoutHandler(
-  config: ParsedConfig,
-): Promise<NextResponse> {
+/**
+ * This functions handles the logout of a user by removing the session cookie from their end.
+ * Note that this DOES NOT invalidate the cookie, as such is impossible while using encryption-based session storage rather than database-based.
+ * @param {ParsedConfig} config
+ * @returns {Promise<NextResponse>}
+ */
+export function logoutHandler(config: ParsedConfig): Promise<NextResponse> {
   try {
     cookies().delete(config.cookieName);
-    return Success();
+    return Promise.resolve(Success());
   } catch (error: unknown) {
     throwError("logoutHandler", error);
-    return InternalServerError();
+    return Promise.resolve(InternalServerError());
   }
 }
 
@@ -105,7 +109,7 @@ export async function signupHandler(
       error &&
       typeof error === "object" &&
       "message" in error &&
-      error.message == "Unexpected end of JSON input"
+      error.message === "Unexpected end of JSON input"
     ) {
       return BadRequest();
     } else {

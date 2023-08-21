@@ -1,3 +1,4 @@
+// skipcq: JS-C1003
 import * as Iron from "iron-webcrypto";
 import getCrypto from "../../utils/crypto";
 import { cookies } from "next/headers";
@@ -13,9 +14,9 @@ const _crypto: Crypto = getCrypto();
 export async function getSession(
   config: ParsedConfig,
   request: NextRequest,
-): Promise<false | string> {
+): Promise<undefined | string> {
   const cookie = request.cookies.get(config.cookieName);
-  if (!cookie || !cookie.value) return false;
+  if (!cookie || !cookie.value) return undefined;
   try {
     const secret = await Iron.unseal(
       _crypto,
@@ -27,11 +28,11 @@ export async function getSession(
     if (isSessionSecret(secret) && secret.expiration > Date.now()) {
       return secret.username;
     } else {
-      return false;
+      return undefined;
     }
   } catch (error) {
     throwError("getSession", error);
-    return false;
+    return undefined;
   }
 }
 
@@ -42,7 +43,7 @@ export async function createSession(
   try {
     const secret: SessionSecret = {
       expiration: config.cookieExpiration,
-      username: username,
+      username,
     };
 
     const sealedSecret = await Iron.seal(

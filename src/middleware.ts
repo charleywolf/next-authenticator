@@ -15,11 +15,11 @@ import { parseConfig } from "./utils/config";
 export async function authenticatorMiddleware(
   config: AuthConfig,
   request: NextRequest,
-) {
+): Promise<NextResponse | undefined> {
   const parsedConfig: ParsedConfig = parseConfig(config);
 
   if (parsedConfig.ignoredRoutes.test(request.nextUrl.pathname)) {
-    const session: string | false = await getSession(parsedConfig, request);
+    const session: string | undefined = await getSession(parsedConfig, request);
 
     if (
       !session &&
@@ -40,7 +40,7 @@ export async function authenticatorMiddleware(
       );
     } else {
       const requestHeaders = new Headers(request.headers);
-      requestHeaders.set(parsedConfig.headerName, session || "false");
+      requestHeaders.set(parsedConfig.headerName, session ?? "false");
 
       return NextResponse.next({
         request: {
