@@ -1,5 +1,10 @@
 import { NextResponse } from "next/server";
 
+/**
+ * Returns a NextResponse with a success status, and a message if provided
+ * @param {string} [message]
+ * @returns {NextResponse}
+ */
 const Success = (message?: string): NextResponse => {
   if (message) {
     return NextResponse.json({ message }, { status: 200 });
@@ -8,6 +13,11 @@ const Success = (message?: string): NextResponse => {
   }
 };
 
+/**
+ * Returns a NextResponse with a internal server error status, and an error if provided
+ * @param {string} [error]
+ * @returns {NextResponse}
+ */
 const InternalServerError = (error?: string): NextResponse => {
   if (error) {
     return NextResponse.json({ error }, { status: 500 });
@@ -16,6 +26,11 @@ const InternalServerError = (error?: string): NextResponse => {
   }
 };
 
+/**
+ * Returns a NextResponse with a unauthorized status, and an error if provided
+ * @param {string} [error]
+ * @returns {NextResponse}
+ */
 const Unauthorized = (error?: string): NextResponse => {
   // client provides no credentials or invalid credentials
   if (error) {
@@ -25,6 +40,11 @@ const Unauthorized = (error?: string): NextResponse => {
   }
 };
 
+/**
+ * Returns a NextResponse with a forbidden status, and an error if provided
+ * @param {string} [error]
+ * @returns {NextResponse}
+ */
 const Forbidden = (error?: string): NextResponse => {
   // client has valid credentials but not enough privileges to perform an action on a resource
   if (error) {
@@ -34,6 +54,11 @@ const Forbidden = (error?: string): NextResponse => {
   }
 };
 
+/**
+ * Returns a NextResponse with a bad request status, and an error if provided
+ * @param {string} [error]
+ * @returns {NextResponse}
+ */
 const BadRequest = (error?: string): NextResponse => {
   if (error) {
     return NextResponse.json({ error }, { status: 400 });
