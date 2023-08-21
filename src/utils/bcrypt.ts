@@ -3,6 +3,9 @@ import bcrypt from "bcrypt";
 
 const saltLength: number = 16; // Bytes
 
+/**
+ * Hashes passwords using the `bcrypt` module
+ */
 export async function hashPassword(password: string): Promise<string> {
   try {
     return await bcrypt.hash(password, saltLength);
@@ -11,6 +14,9 @@ export async function hashPassword(password: string): Promise<string> {
   }
 }
 
+/**
+ * Compares a hashed password with an unhashed password using the `bcrypt` module
+ */
 export async function comparePasswords(
   password: string,
   storedHash: string,

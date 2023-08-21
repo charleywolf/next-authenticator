@@ -3,6 +3,9 @@ import crypto from "crypto";
 
 const saltLength: number = 16; // Bytes
 
+/**
+ * Hashes passwords using the in-built `crypto` module
+ */
 export function hashPassword(password: string): string {
   try {
     const salt: string = crypto.randomBytes(saltLength).toString("hex");
@@ -15,6 +18,9 @@ export function hashPassword(password: string): string {
   }
 }
 
+/**
+ * Compares a hashed password with an unhashed password using the in-built `crypto` module
+ */
 export function comparePasswords(
   password: string,
   storedPassword: string,
