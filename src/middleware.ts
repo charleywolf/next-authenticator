@@ -15,7 +15,7 @@ import { parseConfig } from "./utils/config";
 export async function authenticatorMiddleware(
   config: AuthConfig,
   request: NextRequest,
-) {
+): Promise<NextResponse | undefined> {
   const parsedConfig: ParsedConfig = parseConfig(config);
 
   if (parsedConfig.ignoredRoutes.test(request.nextUrl.pathname)) {
