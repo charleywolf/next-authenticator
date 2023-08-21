@@ -59,15 +59,13 @@ export async function loginHandler(
   }
 }
 
-export async function logoutHandler(
-  config: ParsedConfig,
-): Promise<NextResponse> {
+export function logoutHandler(config: ParsedConfig): Promise<NextResponse> {
   try {
     cookies().delete(config.cookieName);
-    return Success();
+    return Promise.resolve(Success());
   } catch (error: unknown) {
     throwError("logoutHandler", error);
-    return InternalServerError();
+    return Promise.resolve(InternalServerError());
   }
 }
 

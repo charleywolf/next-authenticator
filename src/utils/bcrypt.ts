@@ -1,15 +1,11 @@
 import { getError, throwError } from "./misc";
-import crypto from "crypto";
+import bcrypt from "bcrypt";
 
 const saltLength: number = 16; // Bytes
 
 export async function hashPassword(password: string): Promise<string> {
   try {
-    const salt: string = crypto.randomBytes(saltLength).toString("hex");
-    const hash: string = crypto
-      .pbkdf2Sync(password, salt, 100000, 64, "sha512")
-      .toString("hex");
-    return `${salt}:${hash}`;
+    return await bcrypt.hash(password, saltLength);
   } catch (error) {
     throw Error(getError("hashPassword", error));
   }
@@ -17,14 +13,10 @@ export async function hashPassword(password: string): Promise<string> {
 
 export async function comparePasswords(
   password: string,
-  storedPassword: string,
+  storedHash: string,
 ): Promise<boolean> {
   try {
-    const [salt, hash] = storedPassword.split(":");
-    const newHash: string = crypto
-      .pbkdf2Sync(password, salt, 100000, 64, "sha512")
-      .toString("hex");
-    return newHash === hash;
+    return await bcrypt.compare(password, storedHash);
   } catch (error) {
     throwError("comparePasswords", error);
     return false;
