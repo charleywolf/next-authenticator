@@ -3,5 +3,10 @@
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "editor.formatOnSave": true
+  "editor.formatOnSave": true,
+  "jsdoc-generator.includeAsync": false,
+  "jsdoc-generator.includeDate": false,
+  "jsdoc-generator.includeExport": false,
+  "jsdoc-generator.includeTime": false,
+  "jsdoc-generator.descriptionPlaceholder": ""
 }

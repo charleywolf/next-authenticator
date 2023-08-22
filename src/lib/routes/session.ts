@@ -1,16 +1,26 @@
 // skipcq: JS-C1003
 import * as Iron from "iron-webcrypto";
-import getCrypto from "../../utils/crypto";
-import { cookies } from "next/headers";
 
 import { ParsedConfig, SessionSecret } from "../interface";
-import { throwError } from "../../utils/misc";
-import { ResponseCookies } from "next/dist/compiled/@edge-runtime/cookies";
-import { NextRequest } from "next/server";
-import { isSessionSecret } from "../../utils/typeof";
 
+import { NextRequest } from "next/server";
+import { ResponseCookies } from "next/dist/compiled/@edge-runtime/cookies";
+import { cookies } from "next/headers";
+import getCrypto from "../../utils/crypto";
+import { isSessionSecret } from "../../utils/typeof";
+import { throwError } from "../../utils/misc";
+
+/**
+ * @type {Crypto}
+ */
 const _crypto: Crypto = getCrypto();
 
+/**
+ * Gets the current session if it exists and is valid/unexpired
+ * @param {ParsedConfig} config
+ * @param {NextRequest} request
+ * @returns {Promise<undefined | string>} Returns undefined if no valid session exists, or the username of the current session if one does.
+ */
 export async function getSession(
   config: ParsedConfig,
   request: NextRequest,
@@ -36,6 +46,12 @@ export async function getSession(
   }
 }
 
+/**
+ * Creates a session for a username
+ * @param {ParsedConfig} config To get the expiration time
+ * @param {string} username To set the username of the new session
+ * @returns {Promise<false | ResponseCookies>} Returns false if an error occured, or the new cookies if it was successfully created/cookies set
+ */
 export async function createSession(
   config: ParsedConfig,
   username: string,

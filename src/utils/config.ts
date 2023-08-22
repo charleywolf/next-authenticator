@@ -1,5 +1,10 @@
 import { AuthConfig, ParsedConfig } from "../lib/interface";
 
+/**
+ * Parses the config by putting in defaults where nothing was provided
+ * @param {AuthConfig} config
+ * @returns {ParsedConfig}
+ */
 export function parseConfig(config: AuthConfig): ParsedConfig {
   const defaultExpiration = 7 * 24 * 60 * 60 * 1000;
   if (config.session_private_key.length < 32) {

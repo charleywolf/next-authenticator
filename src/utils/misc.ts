@@ -1,3 +1,9 @@
+/**
+ * Logs an error message to the console without throwing an error/disrupting the server
+ * @param {string} location
+ * @param {unknown} message
+ * @returns {void}
+ */
 export function throwError(location: string, message: unknown): void {
   if (typeof message === "string") {
     console.error(`An error has occured at ${location}: ${message}`);
@@ -11,6 +17,12 @@ export function throwError(location: string, message: unknown): void {
   }
 }
 
+/**
+ * Generates and returns an error message regarding the location of the error and the provided message
+ * @param {string} location
+ * @param {string} message
+ * @returns {string}
+ */
 export function getError(location: string, message: unknown): string {
   if (typeof message === "string") {
     return `An error has occured at ${location}: ${message}`;
