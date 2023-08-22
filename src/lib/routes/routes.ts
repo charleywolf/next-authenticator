@@ -1,18 +1,26 @@
-import { NextRequest, NextResponse } from "next/server";
-import { ParsedConfig } from "../interface";
 import {
+  BadRequest,
   InternalServerError,
   Success,
-  BadRequest,
   Unauthorized,
 } from "../responses";
-import { cookies } from "next/headers";
-import { throwError } from "../../utils/misc";
-import { createAccount, getAccountFromUsername } from "../databases/crud";
+import { NextRequest, NextResponse } from "next/server";
 import { comparePasswords, hashPassword } from "../../utils/bcrypt";
+import { createAccount, getAccountFromUsername } from "../databases/crud";
+
+import { ParsedConfig } from "../interface";
+import { cookies } from "next/headers";
 import { createSession } from "./session";
+import { throwError } from "../../utils/misc";
 import validate from "../../utils/validate";
 
+/**
+ * Handles the login request by determining if an account exists, and compares the passwords
+ * If valid, it creates a session cookie and returns it to the user
+ * @param {ParsedConfig} config
+ * @param {NextRequest} request
+ * @returns {Promise<NextResponse>}
+ */
 export async function loginHandler(
   config: ParsedConfig,
   request: NextRequest,
@@ -75,6 +83,13 @@ export function logoutHandler(config: ParsedConfig): Promise<NextResponse> {
   }
 }
 
+/**
+ * Handles the signup request, by first determining whether the username and password are valid, and then creating an account.
+ * This does not create a session cookie!
+ * @param {ParsedConfig} config
+ * @param {NextRequest} request
+ * @returns {Promise<NextResponse>}
+ */
 export async function signupHandler(
   config: ParsedConfig,
   request: NextRequest,
