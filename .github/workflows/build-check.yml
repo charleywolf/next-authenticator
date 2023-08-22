@@ -3,10 +3,11 @@ name: Build Check
 on:
   pull_request:
     types: [labeled]
+    branches: [main]
 
 jobs:
   build:
-    if: ${{ github.event.label.name == 'ci' }}
+    if: contains(github.event.pull_request.labels.*.name, 'ci')
     runs-on: ubuntu-latest
 
     steps:
