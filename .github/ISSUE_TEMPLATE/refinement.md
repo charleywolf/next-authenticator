@@ -1,10 +1,9 @@
 ---
 name: Refinement
 about: Suggest a change for code readability or to the .github folder
-title: ''
+title: ""
 labels: refinement
 assignees: charleywolf
-
 ---
 
 ### Why
