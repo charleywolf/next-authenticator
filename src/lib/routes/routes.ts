@@ -26,7 +26,10 @@ export async function loginHandler(
   request: NextRequest,
 ): Promise<NextResponse> {
   try {
-    const { username, password } = await request.json();
+    const { username, password } = (await request.json()) as {
+      username: unknown;
+      password: unknown;
+    };
 
     if (
       username &&
@@ -95,7 +98,10 @@ export async function signupHandler(
   request: NextRequest,
 ): Promise<NextResponse> {
   try {
-    const { username, password } = await request.json();
+    const { username, password } = (await request.json()) as {
+      username: unknown;
+      password: unknown;
+    };
 
     if (
       username &&
