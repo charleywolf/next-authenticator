@@ -44,6 +44,28 @@ jobs:
               labels: ["ci approved"]
             })
 
+      - name: Remove Label "ci rejected" from Pull Request
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const labelsResponse = await github.rest.issues.listLabelsOnIssue({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            const labels = labelsResponse.data; // Extract the label information from the response
+            const hasRejectedLabel = labels.some(label => label.name === 'ci rejected');
+
+            if (hasRejectedLabel) {
+              await github.rest.issues.removeLabel({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'ci rejected'
+              });
+            }
+
   failure:
     if: failure() && github.event_name == 'pull_request'
     needs: [build]
@@ -62,3 +84,26 @@ jobs:
               repo: context.repo.repo,
               labels: ["ci rejected"]
             })
+            - name: Remove Label "ci approved" from Pull Request
+
+      - name: Remove Label "ci approved" from Pull Request
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const labelsResponse = await github.rest.issues.listLabelsOnIssue({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo
+            });
+
+            const labels = labelsResponse.data; // Extract the label information from the response
+            const hasApprovedLabel = labels.some(label => label.name === 'ci approved');
+
+            if (hasApprovedLabel) {
+              await github.rest.issues.removeLabel({
+                issue_number: context.issue.number,
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                name: 'ci approved'
+              });
+            }
