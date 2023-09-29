@@ -47,7 +47,7 @@ export async function POST(
 ```typescript
 // This middleware will protect your routes and handle callbackRedirect if enabled
 
-import { authenticatorMiddleware } from "next-authenticator";
+import { authenticatorMiddleware } from "next-authenticator/middleware";
 import { NextRequest } from "next/server";
 import { AuthenticatorConfig } from "./config";
 
