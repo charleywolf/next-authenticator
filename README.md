@@ -61,7 +61,7 @@ export default function middleware(request: NextRequest) {
 This file can be located anywhere in your project, as long as all your files using the package can access it.
 
 ```typescript
-import { AuthConfig } from "next-authenticator/lib/interface";
+import { AuthConfig } from "next-authenticator/types";
 
 if (!process.env.MONGO_URI || !process.env.SESSION_PRIVATE_KEY) {
   throw Error("Missing required environmentals for next-authenticator!");
