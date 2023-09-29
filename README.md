@@ -24,7 +24,7 @@ You need to generate/obtain the following before using this package:
 
 ### API Route Implementation (route.ts)
 
-**Location:** `app/auth/[method]/route.ts` or `src/app/auth/[method]/route.ts`
+**Location:** `app/api/auth/[method]/route.ts` or `src/app/api/auth/[method]/route.ts`
 
 ```typescript
 // This handles the login, logout, and signup API routes
