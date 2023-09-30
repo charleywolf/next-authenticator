@@ -6,6 +6,7 @@ import {
   signupHandler,
 } from "./lib/routes/routes";
 
+import { NotFound } from "./lib/responses";
 import { parseConfig } from "./utils/config";
 
 /**
@@ -32,7 +33,7 @@ export async function authenticatorRoutes(
   };
 
   if (methods[params.method] === undefined) {
-    return NextResponse.json({ status: 404 });
+    return NotFound();
   }
 
   return await methods[params.method](parsedConfig, request);

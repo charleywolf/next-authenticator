@@ -9,7 +9,7 @@ const Success = (message?: string): NextResponse => {
   if (message) {
     return NextResponse.json({ message }, { status: 200 });
   } else {
-    return NextResponse.json({ status: 200 });
+    return NextResponse.json({ message: "Success" }, { status: 200 });
   }
 };
 
@@ -22,7 +22,10 @@ const InternalServerError = (error?: string): NextResponse => {
   if (error) {
     return NextResponse.json({ error }, { status: 500 });
   } else {
-    return NextResponse.json({ status: 500 });
+    return NextResponse.json(
+      { error: "Internal Server Error" },
+      { status: 500 },
+    );
   }
 };
 
@@ -36,7 +39,7 @@ const Unauthorized = (error?: string): NextResponse => {
   if (error) {
     return NextResponse.json({ error }, { status: 401 });
   } else {
-    return NextResponse.json({ status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 };
 
@@ -50,8 +53,16 @@ const Forbidden = (error?: string): NextResponse => {
   if (error) {
     return NextResponse.json({ error }, { status: 403 });
   } else {
-    return NextResponse.json({ status: 403 });
+    return NextResponse.json({ error: "Forbidden" }, { status: 403 });
   }
+};
+
+/**
+ * Returns a NextResponse with a not found statusd
+ * @returns {NextResponse}
+ */
+const NotFound = (): NextResponse => {
+  return NextResponse.json({ error: "Page Not Found" }, { status: 404 });
 };
 
 /**
@@ -63,8 +74,15 @@ const BadRequest = (error?: string): NextResponse => {
   if (error) {
     return NextResponse.json({ error }, { status: 400 });
   } else {
-    return NextResponse.json({ status: 400 });
+    return NextResponse.json({ error: "Bad Request" }, { status: 400 });
   }
 };
 
-export { Forbidden, Unauthorized, InternalServerError, Success, BadRequest };
+export {
+  Forbidden,
+  Unauthorized,
+  InternalServerError,
+  Success,
+  BadRequest,
+  NotFound,
+};
