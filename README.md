@@ -24,7 +24,7 @@ You need to generate/obtain the following before using this package:
 
 ### API Route Implementation (route.ts)
 
-**Location:** `app/auth/[method]/route.ts` or `src/app/auth/[method]/route.ts`
+**Location:** `app/api/auth/[method]/route.ts` or `src/app/api/auth/[method]/route.ts`
 
 ```typescript
 // This handles the login, logout, and signup API routes
@@ -47,7 +47,7 @@ export async function POST(
 ```typescript
 // This middleware will protect your routes and handle callbackRedirect if enabled
 
-import { authenticatorMiddleware } from "next-authenticator";
+import { authenticatorMiddleware } from "next-authenticator/middleware";
 import { NextRequest } from "next/server";
 import { AuthenticatorConfig } from "./config";
 
@@ -61,7 +61,7 @@ export default function middleware(request: NextRequest) {
 This file can be located anywhere in your project, as long as all your files using the package can access it.
 
 ```typescript
-import { AuthConfig } from "next-authenticator/lib/interface";
+import { AuthConfig } from "next-authenticator/types";
 
 if (!process.env.MONGO_URI || !process.env.SESSION_PRIVATE_KEY) {
   throw Error("Missing required environmentals for next-authenticator!");
