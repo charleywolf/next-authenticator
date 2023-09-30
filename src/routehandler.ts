@@ -1,11 +1,12 @@
-import { NextRequest, NextResponse } from "next/server";
 import { AuthConfig, ParsedConfig } from "./lib/interface";
-import { parseConfig } from "./utils/config";
+import { NextRequest, NextResponse } from "next/server";
 import {
   loginHandler,
   logoutHandler,
   signupHandler,
 } from "./lib/routes/routes";
+
+import { parseConfig } from "./utils/config";
 
 /**
  * Next.js app router route handlers for login, signup, and logout
@@ -29,6 +30,10 @@ export async function authenticatorRoutes(
     logout: logoutHandler,
     signup: signupHandler,
   };
+
+  if (methods[params.method] === undefined) {
+    return NextResponse.json({ status: 404 });
+  }
 
   return await methods[params.method](parsedConfig, request);
 }
