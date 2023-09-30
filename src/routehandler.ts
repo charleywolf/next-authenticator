@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import {
   loginHandler,
   logoutHandler,
+  profileHandler,
   signupHandler,
 } from "./lib/routes/routes";
 
@@ -30,6 +31,7 @@ export async function authenticatorRoutes(
     login: loginHandler,
     logout: logoutHandler,
     signup: signupHandler,
+    profile: profileHandler,
   };
 
   if (methods[params.method] === undefined) {

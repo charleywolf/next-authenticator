@@ -7,12 +7,30 @@ import {
 import { NextRequest, NextResponse } from "next/server";
 import { comparePasswords, hashPassword } from "../../utils/bcrypt";
 import { createAccount, getAccountFromUsername } from "../databases/crud";
+import { createSession, getSession } from "./session";
 
 import { ParsedConfig } from "../interface";
 import { cookies } from "next/headers";
-import { createSession } from "./session";
 import { throwError } from "../../utils/misc";
 import validate from "../../utils/validate";
+
+/**
+ * Return the username of the user if they are logged in, otherwise return false
+ * @param {ParsedConfig} config
+ * @param {NextRequest} request
+ * @returns {Promise<NextResponse>}
+ */
+export async function profileHandler(
+  config: ParsedConfig,
+  request: NextRequest,
+): Promise<NextResponse> {
+  try {
+    return Success((await getSession(config, request)) ?? "false");
+  } catch (error: unknown) {
+    throwError("profileHandler", error);
+    return InternalServerError();
+  }
+}
 
 /**
  * Handles the login request by determining if an account exists, and compares the passwords
